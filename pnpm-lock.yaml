@@ -2,9 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   color-composite: ^1.0.2
+  color-name: ^1.1.4
 
 dependencies:
   color-composite: 1.0.2
+  color-name: 1.1.4
 
 packages:
 
