@@ -1,11 +1,19 @@
-import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
+import { composite } from "color-composite";
 import colorName from "color-name";
+import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
 
 type ColorModelType = {
   r: number;
   g: number;
   b: number;
   a: number;
+};
+
+/** 当前只用的到 rgb 类型 */
+type ColorCompositeType = {
+  space: "rgb";
+  values: [number, number, number];
+  alpha: number;
 };
 
 const formatColorNameToRgb = (name: string) => {
@@ -68,7 +76,7 @@ export const model2Hex = (color: ColorModelType): string => {
   return `#${rHex}${gHex}${bHex}${aHex === "00" ? "" : aHex}`;
 };
 
-export const modal2Hex = (color: ColorModelType): string => {
+export const model2Rgba = (color: ColorModelType): string => {
   const { r, g, b, a } = color;
   return `${a === 1 ? "rgb" : "rgba"}(${r}, ${g},${b}${
     a === 1 ? "" : `, ${a}`
@@ -91,4 +99,29 @@ export const getColorModel = (color: string) => {
   if (isRgb(color) || isRgba(color)) {
     return rgba2Model(color);
   }
+};
+
+export const composite2Modal = (color: ColorCompositeType): ColorModelType => {
+  const {
+    values: [r, g, b],
+    alpha,
+  } = color;
+
+  return { r, g, b, a: alpha };
+};
+
+const mix2Model = (colors: string[]) => {
+  const result = composite(colors);
+  return composite2Modal(result);
+};
+
+const mix2Hex = (colors: string[]) => {
+  const model = mix2Model(colors);
+
+  return model2Rgba(model);
+};
+
+const mix2Rgba = (colors: string[]) => {
+  const model = mix2Model(colors);
+  return model2Rgba(model);
 };
