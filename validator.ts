@@ -1,25 +1,28 @@
-import colorName from "color-name";
+import * as colorName from "color-name";
+import { removeRgbaBlank } from "./transform";
 
-export const isColorName = (name: string) => {
+const isColorName = (name: string) => {
   return Object.keys(colorName).includes(name);
 };
 
-export const isHex = (color: string) => {
+const isHex = (color: string) => {
   return /^#([0-9a-fA-F\d]{6}|[0-9a-fA-F\d]{3})$/.test(color);
 };
 
-export const isRgb = (color: string) => {
+const isRgb = (color: string) => {
   return /rgb\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2})\)/.test(
-    color
+    removeRgbaBlank(color)
   );
 };
 
-export const isRgba = (color: string) => {
+const isRgba = (color: string) => {
   return /rgba\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),((?:0?\.\d+)|1)(?=\))/.test(
-    color
+    removeRgbaBlank(color)
   );
 };
 
-export const isColor = (color: string) => {
+const isColor = (color: string) => {
   return isColorName(color) || isHex(color) || isRgb(color) || isRgba(color);
 };
+
+export { isColorName, isHex, isRgb, isRgba, isColor };

@@ -1,5 +1,5 @@
 import { composite } from "color-composite";
-import colorName from "color-name";
+import { default as colorName, RGB } from "color-name";
 import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
 
 type ColorModelType = {
@@ -9,6 +9,10 @@ type ColorModelType = {
   a: number;
 };
 
+type ColorNameType = {
+  [key: string]: RGB;
+};
+
 /** 当前只用的到 rgb 类型 */
 type ColorCompositeType = {
   space: "rgb";
@@ -16,8 +20,12 @@ type ColorCompositeType = {
   alpha: number;
 };
 
-const formatColorNameToRgb = (name: string) => {
-  const [r, g, b] = colorName[name];
+const removeRgbaBlank = (color: string) => {
+  return color.replace(/\s+/g, "");
+};
+
+const formatColorName2Rgb = (name: string) => {
+  const [r, g, b] = (colorName as ColorNameType)[name];
   return `rgb(${r},${g},${b})`;
 };
 
@@ -66,7 +74,7 @@ const hexAdd0 = (hex: string) => {
   return hex.padStart(2, "0");
 };
 
-export const model2Hex = (color: ColorModelType): string => {
+const model2Hex = (color: ColorModelType): string => {
   const { r, g, b, a } = color;
   const rHex = hexAdd0(Math.round(r).toString(16));
   const gHex = hexAdd0(Math.round(g).toString(16));
@@ -76,32 +84,14 @@ export const model2Hex = (color: ColorModelType): string => {
   return `#${rHex}${gHex}${bHex}${aHex === "00" ? "" : aHex}`;
 };
 
-export const model2Rgba = (color: ColorModelType): string => {
+const model2Rgba = (color: ColorModelType): string => {
   const { r, g, b, a } = color;
   return `${a === 1 ? "rgb" : "rgba"}(${r}, ${g},${b}${
     a === 1 ? "" : `, ${a}`
   })`;
 };
 
-export const getColorModel = (color: string) => {
-  if (!isColor(color)) {
-    return {};
-  }
-
-  if (isHex(color)) {
-    return hex2Model(color);
-  }
-
-  if (isColorName(color)) {
-    return rgba2Model(formatColorNameToRgb(color));
-  }
-
-  if (isRgb(color) || isRgba(color)) {
-    return rgba2Model(color);
-  }
-};
-
-export const composite2Modal = (color: ColorCompositeType): ColorModelType => {
+const composite2Modal = (color: ColorCompositeType): ColorModelType => {
   const {
     values: [r, g, b],
     alpha,
@@ -125,3 +115,46 @@ const mix2Rgba = (colors: string[]) => {
   const model = mix2Model(colors);
   return model2Rgba(model);
 };
+
+const mix2Color = (colors: string[], type: "rgb" | "hex") => {
+  if (type === "rgb") {
+    return mix2Rgba(colors);
+  }
+
+  if (type === "hex") {
+    return mix2Hex(colors);
+  }
+
+  return "";
+};
+
+const rgba2Hex = (color: string) => {
+  return model2Hex(rgba2Model(color));
+};
+
+const hex2Rgba = (color: string) => {
+  return model2Rgba(hex2Model(color));
+};
+
+const color2Color = (color: string, type?: "rgb" | "hex") => {
+  if (isColor(color)) {
+    return "";
+  }
+
+  if (isRgb(color) || isRgba(color)) {
+    return rgba2Hex(color);
+  }
+
+  if (isColorName(color)) {
+    const model = rgba2Model(formatColorName2Rgb(color));
+    return type === "rgb" ? model2Rgba(model) : model2Hex(model);
+  }
+
+  if (isHex(color)) {
+    return hex2Rgba(color);
+  }
+
+  return hex2Rgba;
+};
+
+export { removeRgbaBlank, mix2Color, color2Color };
