@@ -6,7 +6,7 @@ const isColorName = (name: string) => {
 };
 
 const isHex = (color: string) => {
-  return /^#([0-9a-fA-F\d]{6}|[0-9a-fA-F\d]{3})$/.test(color);
+  return /^#(?:(?:[\da-f]{3}){1,2}|(?:[\da-f]{4}){1,2})$/.test(color);
 };
 
 const isRgb = (color: string) => {
