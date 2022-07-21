@@ -65,7 +65,7 @@ const rgba2Model = (color: string): ColorModelType => {
   const result = (isRgba(color) ? color?.substring(5) : color.substring(4))
     .split(")")[0]
     .split(",");
-  const [r, g, b, a] = result?.map(Number);
+  const [r, g, b, a = 1] = result?.map(Number);
 
   return { r, g, b, a };
 };
@@ -86,7 +86,7 @@ const model2Hex = (color: ColorModelType): string => {
 
 const model2Rgba = (color: ColorModelType): string => {
   const { r, g, b, a } = color;
-  return `${a === 1 ? "rgb" : "rgba"}(${r}, ${g},${b}${
+  return `${a === 1 ? "rgb" : "rgba"}(${r}, ${g}, ${b}${
     a === 1 ? "" : `, ${a}`
   })`;
 };
@@ -108,7 +108,7 @@ const mix2Model = (colors: string[]) => {
 const mix2Hex = (colors: string[]) => {
   const model = mix2Model(colors);
 
-  return model2Rgba(model);
+  return model2Hex(model);
 };
 
 const mix2Rgba = (colors: string[]) => {
@@ -137,7 +137,7 @@ const hex2Rgba = (color: string) => {
 };
 
 const color2Color = (color: string, type?: "rgb" | "hex") => {
-  if (isColor(color)) {
+  if (!isColor(color)) {
     return "";
   }
 
