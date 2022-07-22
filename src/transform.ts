@@ -20,10 +20,6 @@ type ColorCompositeType = {
   alpha: number;
 };
 
-const removeRgbaBlank = (color: string) => {
-  return color.replace(/\s+/g, "");
-};
-
 const formatColorName2Rgb = (name: string) => {
   const [r, g, b] = (colorName as ColorNameType)[name];
   return `rgb(${r},${g},${b})`;
@@ -157,4 +153,4 @@ const color2Color = (color: string, type?: "rgb" | "hex") => {
   return hex2Rgba;
 };
 
-export { removeRgbaBlank, mix2Color, color2Color };
+export { mix2Color, color2Color };

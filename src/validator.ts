@@ -1,5 +1,5 @@
 import * as colorName from "color-name";
-import { removeRgbaBlank } from "./transform";
+import { removeRgbaBlank } from "./helper";
 
 const isColorName = (name: string) => {
   return Object.keys(colorName).includes(name);
