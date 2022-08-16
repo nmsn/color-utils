@@ -15,3 +15,4 @@
 - [x] rollup 打包
 - [] 发布 npm
 - [] 重写 color-composite 函数
+- [] 在线 color-picker 使用工具
