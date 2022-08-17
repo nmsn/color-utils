@@ -14,5 +14,5 @@
 - [x] 单元测试覆盖
 - [x] rollup 打包
 - [] 发布 npm
-- [] 重写 color-composite 函数
+- [x] 重写 color-composite 函数/本地 mix 函数替换
 - [] 在线 color-picker 使用工具

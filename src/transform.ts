@@ -1,4 +1,3 @@
-import { composite } from "color-composite";
 import { default as colorName, RGB } from "color-name";
 import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
 
@@ -7,6 +6,13 @@ type ColorModelType = {
   g: number;
   b: number;
   a: number;
+};
+
+const DEFAULT_MODEL = {
+  r: 0,
+  g: 0,
+  b: 0,
+  a: 0,
 };
 
 type ColorNameType = {
@@ -96,32 +102,44 @@ const composite2Modal = (color: ColorCompositeType): ColorModelType => {
   return { r, g, b, a: alpha };
 };
 
-const mix2Model = (colors: string[]) => {
-  const result = composite(colors);
-  return composite2Modal(result);
-};
+const mix2ModelColors = (
+  colors: ColorModelType[],
+  amount?: number[]
+): ColorModelType => {
+  let actualAmount: number[] = [];
+  if (Array.isArray(amount) && amount?.length) {
+    const sum = amount.reduce((sum, cur) => sum + cur);
 
-const mix2Hex = (colors: string[]) => {
-  const model = mix2Model(colors);
+    // FIXME 比例校验逻
+    if (sum !== 1) {
+      return DEFAULT_MODEL;
+    }
 
-  return model2Hex(model);
-};
-
-const mix2Rgba = (colors: string[]) => {
-  const model = mix2Model(colors);
-  return model2Rgba(model);
-};
-
-const mix2Color = (colors: string[], type: "rgb" | "hex") => {
-  if (type === "rgb") {
-    return mix2Rgba(colors);
+    actualAmount = amount;
+  } else {
+    actualAmount = Array(colors?.length).fill(1 / colors?.length);
   }
 
-  if (type === "hex") {
-    return mix2Hex(colors);
-  }
+  const result = { ...DEFAULT_MODEL };
 
-  return "";
+  colors.forEach((item, index) => {
+    result.r += item.r * actualAmount?.[index] || 0;
+    result.g += item.g * actualAmount?.[index] || 0;
+    result.b += item.b * actualAmount?.[index] || 0;
+    result.a += item.a * actualAmount?.[index] || 0;
+  });
+
+  return result;
+};
+
+const mix2Color = (
+  colors: string[],
+  type: "rgb" | "hex",
+  amount?: number[]
+) => {
+  const models = colors?.map((item) => color2Model(item));
+  const mixResult = mix2ModelColors(models, amount);
+  return model2Color(mixResult, type);
 };
 
 const rgba2Hex = (color: string) => {
@@ -130,6 +148,34 @@ const rgba2Hex = (color: string) => {
 
 const hex2Rgba = (color: string) => {
   return model2Rgba(hex2Model(color));
+};
+
+const color2Model = (color: string) => {
+  if (isHex(color)) {
+    return hex2Model(color);
+  }
+
+  if (isRgba(color) || isRgb(color)) {
+    return rgba2Model(color);
+  }
+
+  if (isColorName(color)) {
+    return rgba2Model(formatColorName2Rgb(color));
+  }
+
+  return DEFAULT_MODEL;
+};
+
+const model2Color = (color: ColorModelType, type: "rgb" | "hex"): string => {
+  if (type === "rgb") {
+    return model2Rgba(color);
+  }
+
+  if (type === "hex") {
+    return model2Hex(color);
+  }
+
+  return "";
 };
 
 const color2Color = (color: string, type?: "rgb" | "hex") => {
@@ -141,9 +187,9 @@ const color2Color = (color: string, type?: "rgb" | "hex") => {
     return rgba2Hex(color);
   }
 
-  if (isColorName(color)) {
+  if (isColorName(color) && type) {
     const model = rgba2Model(formatColorName2Rgb(color));
-    return type === "rgb" ? model2Rgba(model) : model2Hex(model);
+    return model2Color(model, type);
   }
 
   if (isHex(color)) {
@@ -153,4 +199,4 @@ const color2Color = (color: string, type?: "rgb" | "hex") => {
   return hex2Rgba;
 };
 
-export { mix2Color, color2Color };
+export { mix2Color, color2Model, color2Color };

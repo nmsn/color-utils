@@ -3,10 +3,11 @@ import { mix2Color, color2Color } from "../src/transform";
 describe("test transform functions", () => {
   it("mix2Color", () => {
     expect(mix2Color(["rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)"], "rgb")).toBe(
-      "rgba(85, 85, 85, 0.75)"
+      "rgba(127.5, 127.5, 127.5, 0.5)"
     );
+  
     expect(mix2Color(["rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)"], "hex")).toBe(
-      "#555555bf"
+      "#80808080"
     );
   });
 
