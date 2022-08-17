@@ -2,12 +2,12 @@
   "compilerOptions": {
     "module": "ESNext",
     "esModuleInterop": true,
-    "target": "ESNext",
+    "target": "ES6",
     "outDir": "dist",
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": false,
     "strict": true,
-    "sourceMap": true
+    "sourceMap": false
   },
   "lib": ["esnext"]
 }

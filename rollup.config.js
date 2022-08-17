@@ -9,18 +9,10 @@ export default {
     {
       file: "dist/bundle.esm.js",
       format: "esm",
-      sourcemap: true,
     },
     {
       file: "dist/bundle.cjs.js",
       format: "cjs",
-      sourcemap: true,
-    },
-    {
-      file: "dist/bundle.umd.js",
-      format: "umd",
-      name: 'bundle',
-      sourcemap: true,
     },
   ],
   plugins: [typescript(), commonjs(), nodeResolve()],
