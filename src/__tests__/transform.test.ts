@@ -1,4 +1,4 @@
-import { mix2Color, color2Color } from "../src/transform";
+import { mix2Color, color2Color } from "../transform";
 
 describe("test transform functions", () => {
   it("mix2Color", () => {

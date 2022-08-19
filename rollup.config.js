@@ -4,14 +4,14 @@ import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default {
-  input: "src/index.ts",
+  input: "./src/index.ts",
   output: [
     {
-      file: "dist/bundle.esm.js",
+      file: "dist/index.esm.mjs",
       format: "esm",
     },
     {
-      file: "dist/bundle.cjs.js",
+      file: "dist/index.cjs.js",
       format: "cjs",
     },
   ],

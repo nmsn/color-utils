@@ -1,4 +1,4 @@
-import { isColorName, isHex, isRgb, isRgba, isColor } from "../src/validator";
+import { isColorName, isHex, isRgb, isRgba, isColor } from "../validator";
 
 describe("test validator functions", () => {
   it("param is valid color name", () => {
