@@ -1,4 +1,4 @@
-import { removeRgbaBlank } from "../helper";
+import { removeRgbaBlank } from "../utils/helper";
 
 describe("helper", () => {
   it("helper", () => {
