@@ -2,7 +2,6 @@
   "name": "color-utils",
   "version": "0.0.1",
   "description": "A color transform utils collection.",
-  "type": "module",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.mjs",
   "types": "./dist/types/index.d.ts",
@@ -41,5 +40,8 @@
     "ts-jest": "^28.0.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"
-  }
+  },
+  "files": [
+    "dist"
+  ]
 }
