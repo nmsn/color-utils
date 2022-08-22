@@ -199,4 +199,4 @@ const color2Color = (color: string, type?: "rgb" | "hex") => {
   return hex2Rgba;
 };
 
-export { mix2Color, color2Model, color2Color };
+export { mix2Color, color2Model, color2Color, model2Color };
