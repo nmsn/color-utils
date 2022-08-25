@@ -1,29 +1,10 @@
 import { default as colorName, RGB } from "color-name";
 import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
-
-type ColorModelType = {
-  r: number;
-  g: number;
-  b: number;
-  a: number;
-};
-
-const DEFAULT_MODEL = {
-  r: 0,
-  g: 0,
-  b: 0,
-  a: 0,
-};
+import { ColorModelType, DEFAULT_MODEL } from "./constant";
+import { mix2ModelColors } from "./calc";
 
 type ColorNameType = {
   [key: string]: RGB;
-};
-
-/** 当前只用的到 rgb 类型 */
-type ColorCompositeType = {
-  space: "rgb";
-  values: [number, number, number];
-  alpha: number;
 };
 
 const formatColorName2Rgb = (name: string) => {
@@ -93,46 +74,7 @@ const model2Rgba = (color: ColorModelType): string => {
   })`;
 };
 
-const composite2Modal = (color: ColorCompositeType): ColorModelType => {
-  const {
-    values: [r, g, b],
-    alpha,
-  } = color;
-
-  return { r, g, b, a: alpha };
-};
-
-const mix2ModelColors = (
-  colors: ColorModelType[],
-  amount?: number[]
-): ColorModelType => {
-  let actualAmount: number[] = [];
-  if (Array.isArray(amount) && amount?.length) {
-    const sum = amount.reduce((sum, cur) => sum + cur);
-
-    // FIXME 比例校验逻
-    if (sum !== 1) {
-      return DEFAULT_MODEL;
-    }
-
-    actualAmount = amount;
-  } else {
-    actualAmount = Array(colors?.length).fill(1 / colors?.length);
-  }
-
-  const result = { ...DEFAULT_MODEL };
-
-  colors.forEach((item, index) => {
-    result.r += item.r * actualAmount?.[index] || 0;
-    result.g += item.g * actualAmount?.[index] || 0;
-    result.b += item.b * actualAmount?.[index] || 0;
-    result.a += item.a * actualAmount?.[index] || 0;
-  });
-
-  return result;
-};
-
-const mix2Color = (
+export const mix2Color = (
   colors: string[],
   type: "rgb" | "hex",
   amount?: number[]
@@ -150,7 +92,7 @@ const hex2Rgba = (color: string) => {
   return model2Rgba(hex2Model(color));
 };
 
-const color2Model = (color: string) => {
+export const color2Model = (color: string) => {
   if (isHex(color)) {
     return hex2Model(color);
   }
@@ -166,7 +108,10 @@ const color2Model = (color: string) => {
   return DEFAULT_MODEL;
 };
 
-const model2Color = (color: ColorModelType, type: "rgb" | "hex"): string => {
+export const model2Color = (
+  color: ColorModelType,
+  type: "rgb" | "hex"
+): string => {
   if (type === "rgb") {
     return model2Rgba(color);
   }
@@ -178,7 +123,7 @@ const model2Color = (color: ColorModelType, type: "rgb" | "hex"): string => {
   return "";
 };
 
-const color2Color = (color: string, type?: "rgb" | "hex") => {
+export const color2Color = (color: string, type?: "rgb" | "hex") => {
   if (!isColor(color)) {
     return "";
   }
@@ -198,5 +143,3 @@ const color2Color = (color: string, type?: "rgb" | "hex") => {
 
   return hex2Rgba;
 };
-
-export { mix2Color, color2Model, color2Color, model2Color };

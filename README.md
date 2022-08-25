@@ -2,7 +2,13 @@
 
 一个前端转换颜色的工具
 
-## 功能
+## Install
+
+```
+npm install @nmsn/color-utils
+```
+
+## Feature
 
 - RGB/RGBA 和 HEX 形式的颜色相互转化
 - 各种颜色类型的校验
@@ -10,7 +16,8 @@
 
 ## TODO
 
-- [x] 基础功能
+- [ ] 基础功能
+  - [ ] 互补色（白色和黑色如何处理）
 - [x] 单元测试覆盖
 - [x] rollup 打包
 - [] 发布 npm
