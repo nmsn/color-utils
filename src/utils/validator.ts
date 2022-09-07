@@ -16,7 +16,7 @@ const isRgb = (color: string) => {
 };
 
 const isRgba = (color: string) => {
-  return /rgba\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),((?:0?\.\d+)|1)(?=\))/.test(
+  return /rgba\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|(?:0?\.\d+)|1)(?=\))/.test(
     removeRgbaBlank(color)
   );
 };
