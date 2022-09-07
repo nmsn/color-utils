@@ -11,3 +11,7 @@ export const DEFAULT_MODEL = {
   b: 0,
   a: 0,
 };
+
+export type ColorType = "hex" | "rgb" | "rgba";
+
+export type OptionalColorType = Exclude<ColorType, 'rgba'>
