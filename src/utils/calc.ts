@@ -8,7 +8,7 @@ export const mix2ModelColors = (
   if (Array.isArray(amount) && amount?.length) {
     const sum = amount.reduce((sum, cur) => sum + cur);
 
-    // FIXME 比例校验逻
+    // TODO 比例校验优化
     if (sum !== 1) {
       return DEFAULT_MODEL;
     }
@@ -34,7 +34,7 @@ export const mix2ModelColors = (
  * 广义上的互补色
  * 黑白/色环
  */
-export const calcComplementaryColor = (
+export const calcComplementaryModal = (
   color: ColorModelType
 ): ColorModelType => {
   const { r, g, b, a } = color;

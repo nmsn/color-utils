@@ -1,4 +1,4 @@
-import { mix2ModelColors, calcComplementaryColor } from "../utils/calc";
+import { mix2ModelColors, calcComplementaryModal } from "../utils/calc";
 
 it("mix2ModelColors", () => {
   expect(
@@ -30,7 +30,7 @@ it("mix2ModelColors", () => {
 });
 
 it("calcComplementaryColor", () => {
-  expect(calcComplementaryColor({ r: 0, g: 0, b: 0, a: 1 })).toEqual({
+  expect(calcComplementaryModal({ r: 0, g: 0, b: 0, a: 1 })).toEqual({
     r: 255,
     g: 255,
     b: 255,

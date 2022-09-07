@@ -1,7 +1,7 @@
 import { default as colorName, RGB } from "color-name";
 import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
-import { ColorModelType, DEFAULT_MODEL } from "./constant";
-import { mix2ModelColors } from "./calc";
+import { ColorModelType, DEFAULT_MODEL, OptionalColorType } from "./constant";
+import { mix2ModelColors, calcComplementaryModal } from "./calc";
 
 type ColorNameType = {
   [key: string]: RGB;
@@ -76,7 +76,7 @@ const model2Rgba = (color: ColorModelType): string => {
 
 export const mix2Color = (
   colors: string[],
-  type: "rgb" | "hex",
+  type: OptionalColorType,
   amount?: number[]
 ) => {
   const models = colors?.map((item) => color2Model(item));
@@ -110,7 +110,7 @@ export const color2Model = (color: string) => {
 
 export const model2Color = (
   color: ColorModelType,
-  type: "rgb" | "hex"
+  type: OptionalColorType = "hex"
 ): string => {
   if (type === "rgb") {
     return model2Rgba(color);
@@ -123,7 +123,7 @@ export const model2Color = (
   return "";
 };
 
-export const color2Color = (color: string, type?: "rgb" | "hex") => {
+export const color2Color = (color: string, type?: OptionalColorType) => {
   if (!isColor(color)) {
     return "";
   }
@@ -142,4 +142,14 @@ export const color2Color = (color: string, type?: "rgb" | "hex") => {
   }
 
   return hex2Rgba;
+};
+
+export const calcComplementaryColor = (
+  color: string,
+  type?: OptionalColorType
+) => {
+  const model = color2Model(color);
+  const complementaryColorModel = calcComplementaryModal(model);
+
+  return model2Color(complementaryColorModel, type);
 };
