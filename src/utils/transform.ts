@@ -49,7 +49,6 @@ const rgba2Model = (color: string): ColorModelType => {
     .split(")")[0]
     .split(",");
   const [r, g, b, a = 1] = result?.map(Number);
-
   return { r, g, b, a };
 };
 
@@ -64,7 +63,7 @@ const model2Hex = (color: ColorModelType): string => {
   const bHex = hexAdd0(Math.round(b).toString(16));
   const aHex = hexAdd0(Math.round(a * 255).toString(16));
 
-  return `#${rHex}${gHex}${bHex}${aHex === "00" ? "" : aHex}`;
+  return `#${rHex}${gHex}${bHex}${aHex === "ff" ? "" : aHex}`;
 };
 
 const model2Rgba = (color: ColorModelType): string => {
@@ -105,6 +104,7 @@ export const color2Model = (color: string) => {
     return rgba2Model(formatColorName2Rgb(color));
   }
 
+  // TODO 不符合条件的输出报错
   return DEFAULT_MODEL;
 };
 
@@ -150,6 +150,5 @@ export const calcComplementaryColor = (
 ) => {
   const model = color2Model(color);
   const complementaryColorModel = calcComplementaryModal(model);
-
   return model2Color(complementaryColorModel, type);
 };
