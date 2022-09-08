@@ -1,6 +1,6 @@
 {
   "name": "@nmsn/color-utils",
-  "version": "0.0.3-0",
+  "version": "0.0.3",
   "description": "A color transform utils collection.",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.esm.mjs",
