@@ -20,7 +20,8 @@
   ],
   "scripts": {
     "test": "jest",
-    "build": "rollup --config"
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
   },
   "repository": {
     "type": "git",
