@@ -1,7 +1,7 @@
 import { isHex, isRgba, isRgb } from "./validator";
 
 export const removeRgbaBlank = (color: string) => {
-  return color.replace(/\s+/g, "");
+  return color?.replace(/\s+/g, "") || "";
 };
 
 export const getColorType = (color: string) => {
