@@ -13,11 +13,15 @@ describe("test validator functions", () => {
   it("param is valid rgb string", () => {
     expect(isRgb("rgb(255,255,255)")).toBeTruthy();
     expect(isRgb("rgb(0, 0, 0)")).toBeTruthy();
+    expect(isRgb("rgb(1, 2, 3)")).toBeTruthy();
+    expect(isRgb("rgb(111, 222, 111)")).toBeTruthy();
   });
 
   it("param is valid rgba string", () => {
     expect(isRgba("rgba(255,255,255,1)")).toBeTruthy();
     expect(isRgba("rgba(0, 0, 0, 1)")).toBeTruthy();
+    expect(isRgba("rgba(1, 2, 3, 1)")).toBeTruthy();
+    expect(isRgba("rgba(111, 222, 111, 1)")).toBeTruthy();
   });
 
   it("param is valid color", () => {

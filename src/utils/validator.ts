@@ -10,14 +10,35 @@ const isHex = (color: string) => {
 };
 
 const isRgb = (color: string) => {
-  return /rgb\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2})\)/.test(
-    removeRgbaBlank(color)
+  const regex = /^rgb\((\d+),(\d+),(\d+)\)/;
+  const result = removeRgbaBlank(color)?.match(regex);
+  console.log(result);
+  if (!Array.isArray(result)) {
+    return false;
+  }
+
+  const rgba = result?.slice(1);
+  return rgba?.every(
+    (item) => Number.isInteger(+item) && +item >= 0 && +item <= 255
   );
 };
 
 const isRgba = (color: string) => {
-  return /rgba\((0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|1\d{0,2}|2[0-5]{2}),(0|(?:0?\.\d+)|1)(?=\))/.test(
-    removeRgbaBlank(color)
+  const regex = /^rgba\((\d+),(\d+),(\d+),(\d+)\)/;
+  const result = removeRgbaBlank(color)?.match(regex);
+
+  if (!Array.isArray(result)) {
+    return false;
+  }
+
+  const rgba = result?.slice(1, 4);
+  const opacity = result?.[4];
+  return (
+    rgba?.every(
+      (item) => Number.isInteger(+item) && +item >= 0 && +item <= 255
+    ) &&
+    +opacity >= 0 &&
+    +opacity <= 1
   );
 };
 
