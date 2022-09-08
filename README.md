@@ -38,7 +38,6 @@ npm install @nmsn/color-utils
     - 颜色融合
   - 增加单元测试
 
-
 - v0.0.2
   - 新增 getColorType 获取颜色类型方法
   - 新增计算互补色的方法
