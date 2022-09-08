@@ -29,11 +29,25 @@ it("mix2ModelColors", () => {
   ).toEqual({ r: 0, g: 0, b: 0, a: 0 });
 });
 
-it("calcComplementaryColor", () => {
+it("calcComplementaryModal", () => {
   expect(calcComplementaryModal({ r: 0, g: 0, b: 0, a: 1 })).toEqual({
     r: 255,
     g: 255,
     b: 255,
+    a: 1,
+  });
+  
+  expect(calcComplementaryModal({ r: 255, g: 255, b: 255, a: 1 })).toEqual({
+    r: 0,
+    g: 0,
+    b: 0,
+    a: 1,
+  });
+
+  expect(calcComplementaryModal({ r: 100, g: 100, b: 100, a: 1 })).toEqual({
+    r: 155,
+    g: 155,
+    b: 155,
     a: 1,
   });
 });
