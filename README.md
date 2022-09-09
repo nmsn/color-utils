@@ -41,3 +41,6 @@ npm install @nmsn/color-utils
 - v0.0.2
   - 新增 getColorType 获取颜色类型方法
   - 新增计算互补色的方法
+
+- v0.0.3
+  - 修复 hex 转化错误问题
