@@ -44,3 +44,6 @@ npm install @nmsn/color-utils
 
 - v0.0.3
   - 修复 hex 转化错误问题
+
+- v0.0.4
+  - 修复 isRgb isRgba 颜色判断
