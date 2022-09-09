@@ -22,6 +22,8 @@ describe("test validator functions", () => {
     expect(isRgba("rgba(0, 0, 0, 1)")).toBeTruthy();
     expect(isRgba("rgba(1, 2, 3, 1)")).toBeTruthy();
     expect(isRgba("rgba(111, 222, 111, 1)")).toBeTruthy();
+    expect(isRgba("rgba(1, 2, 3, 0.1)")).toBeTruthy();
+    expect(isRgba("rgba(111, 222, 111, 0.1)")).toBeTruthy();
   });
 
   it("param is valid color", () => {

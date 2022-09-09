@@ -6,21 +6,25 @@ import {
 
 describe("test transform functions", () => {
   it("mix2Color", () => {
-    // expect(mix2Color(["rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)"], "rgb")).toBe(
-    //   "rgba(127.5, 127.5, 127.5, 0.5)"
-    // );
+    expect(mix2Color(["rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)"], "rgb")).toBe(
+      "rgba(127.5, 127.5, 127.5, 0.5)"
+    );
 
-    // expect(mix2Color(["rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)"], "hex")).toBe(
-    //   "#80808080"
-    // );
+    expect(mix2Color(["rgba(0,0,0,0.5)", "rgba(255,255,255,0.5)"], "hex")).toBe(
+      "#80808080"
+    );
+    
+    expect(mix2Color(["rgba(1,2,3,0.5)", "rgba(111,222,111,0.5)"], "hex")).toBe(
+      "#38703980"
+    );
     
     
-    // expect(mix2Color(["rgb(0,0,0)", "rgb(255,255,255)"], "rgb")).toBe(
-    //   "rgb(127.5, 127.5, 127.5)"
-    // );
+    expect(mix2Color(["rgb(0,0,0)", "rgb(255,255,255)"], "rgb")).toBe(
+      "rgb(127.5, 127.5, 127.5)"
+    );
     
     expect(mix2Color(["rgb(85, 36, 36)", "rgb(87, 49, 49)"], "rgb")).toBe(
-      "rgb(127.5, 127.5, 127.5)"
+      "rgb(86, 42.5, 42.5)"
     );
   });
 
