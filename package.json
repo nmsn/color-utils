@@ -20,7 +20,6 @@
   ],
   "scripts": {
     "test": "jest",
-    "test:staged": "jest --bail --findRelatedTests",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "prepare": "husky install"

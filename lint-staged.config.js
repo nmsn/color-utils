@@ -1,3 +1,3 @@
 module.exports = {
-  "src/utils/*.{ts,js}": ["npm run test:staged"]
+  "src/utils/*.{ts,js}": ["jest --bail --findRelatedTests"]
 };
