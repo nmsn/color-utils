@@ -22,7 +22,8 @@
     "test": "jest",
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "publish": "pnr build & npm run publish"
   },
   "repository": {
     "type": "git",
