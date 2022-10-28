@@ -41,5 +41,7 @@ describe("test transform functions", () => {
     expect(calcComplementaryColor("rgba(255,255,255,1)")).toBe("#000000");
     expect(calcComplementaryColor("rgb(0,0,0)")).toBe("#ffffff");
     expect(calcComplementaryColor("rgb(255,255,255)")).toBe("#000000");
+    expect(calcComplementaryColor("rgb(67, 12.5, 12.5)", "rgb")).toBe("rgb(188, 242.5, 242.5)");
+    expect(calcComplementaryColor("rgba(67, 12.5, 12.5, 0.5)", "rgb")).toBe("rgba(188, 242.5, 242.5, 0.5)");
   });
 });
