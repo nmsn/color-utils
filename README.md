@@ -47,3 +47,7 @@ npm install @nmsn/color-utils
 
 - v0.0.4
   - 修复 isRgb isRgba 颜色判断
+
+- v0.0.5v
+  - 修复 isRgb isRgba 颜色判断
+  - 增加测试用例
