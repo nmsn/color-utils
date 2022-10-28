@@ -10,7 +10,7 @@ const isHex = (color: string) => {
 };
 
 const isRgb = (color: string) => {
-  const regex = /^rgb\((\d+),(\d+),(\d+)\)/;
+  const regex = /^rgb\((\S+),(\S+),(\S+)\)/;
   const result = removeRgbaBlank(color)?.match(regex);
   if (!Array.isArray(result)) {
     return false;
@@ -18,13 +18,11 @@ const isRgb = (color: string) => {
 
   const rgba = result?.slice(1);
 
-  return rgba?.every(
-    (item) => Number.isInteger(+item) && +item >= 0 && +item <= 255
-  );
+  return rgba?.every((item) => +item >= 0 && +item <= 256);
 };
 
 const isRgba = (color: string) => {
-  const regex = /^rgba\((\d+),(\d+),(\d+),(\S+)\)/;
+  const regex = /^rgba\((\S+),(\S+),(\S+),(\S+)\)/;
   const result = removeRgbaBlank(color)?.match(regex);
 
   if (!Array.isArray(result)) {
@@ -35,9 +33,7 @@ const isRgba = (color: string) => {
   const opacity = result?.[4];
 
   return (
-    rgb?.every(
-      (item) => Number.isInteger(+item) && +item >= 0 && +item <= 255
-    ) &&
+    rgb?.every((item) => +item >= 0 && +item <= 256) &&
     +opacity >= 0 &&
     +opacity <= 1
   );
