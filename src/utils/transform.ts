@@ -136,7 +136,7 @@ export const model2Color = (
 // TODO type conversion
 export const color2Color = (color: string, type?: OptionalColorType) => {
   if (!isColor(color)) {
-    return "";
+    throw new Error("Param is not a valid color string.");
   }
 
   if (isRgb(color) || isRgba(color)) {

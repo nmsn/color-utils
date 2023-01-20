@@ -31,7 +31,9 @@ describe("test transform functions", () => {
     expect(color2Color("rgba(0,0,0,0.5)")).toBe("#00000080");
     expect(color2Color("rgba(255,255,255,0.5)")).toBe("#ffffff80");
     expect(color2Color("#fff")).toBe("rgb(255, 255, 255)");
-    expect(color2Color("#1")).toBe("");
+    expect(() => color2Color("#1")).toThrowError(
+      "Param is not a valid color string."
+    );
     expect(color2Color("white", "hex")).toBe("#ffffff");
     expect(color2Color("white", "rgb")).toBe("rgb(255, 255, 255)");
   });
@@ -41,7 +43,11 @@ describe("test transform functions", () => {
     expect(calcComplementaryColor("rgba(255,255,255,1)")).toBe("#000000");
     expect(calcComplementaryColor("rgb(0,0,0)")).toBe("#ffffff");
     expect(calcComplementaryColor("rgb(255,255,255)")).toBe("#000000");
-    expect(calcComplementaryColor("rgb(67, 12.5, 12.5)", "rgb")).toBe("rgb(188, 242.5, 242.5)");
-    expect(calcComplementaryColor("rgba(67, 12.5, 12.5, 0.5)", "rgb")).toBe("rgba(188, 242.5, 242.5, 0.5)");
+    expect(calcComplementaryColor("rgb(67, 12.5, 12.5)", "rgb")).toBe(
+      "rgb(188, 242.5, 242.5)"
+    );
+    expect(calcComplementaryColor("rgba(67, 12.5, 12.5, 0.5)", "rgb")).toBe(
+      "rgba(188, 242.5, 242.5, 0.5)"
+    );
   });
 });
