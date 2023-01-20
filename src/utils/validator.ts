@@ -1,5 +1,5 @@
 import * as colorName from "color-name";
-import { removeRgbaBlank, getHslArr, getHslaArr } from "./helper";
+import { removeColorStrBlank, getHslArr, getHslaArr } from "./helper";
 
 const isColorName = (name: string) => {
   return Object.keys(colorName).includes(name);
@@ -11,7 +11,7 @@ const isHex = (color: string) => {
 
 const isRgb = (color: string) => {
   const regex = /^rgb\((\S+),(\S+),(\S+)\)/;
-  const result = removeRgbaBlank(color)?.match(regex);
+  const result = removeColorStrBlank(color)?.match(regex);
   if (!Array.isArray(result)) {
     return false;
   }
@@ -23,7 +23,7 @@ const isRgb = (color: string) => {
 
 const isRgba = (color: string) => {
   const regex = /^rgba\((\S+),(\S+),(\S+),(\S+)\)/;
-  const result = removeRgbaBlank(color)?.match(regex);
+  const result = removeColorStrBlank(color)?.match(regex);
 
   if (!Array.isArray(result)) {
     return false;

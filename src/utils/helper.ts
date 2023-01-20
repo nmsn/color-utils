@@ -1,6 +1,6 @@
 import { isHex, isRgba, isRgb } from "./validator";
 
-export const removeRgbaBlank = (color: string) => {
+export const removeColorStrBlank = (color: string) => {
   return color?.replace(/\s+/g, "") || "";
 };
 
@@ -14,7 +14,7 @@ export const getColorType = (color: string) => {
 
 export const getHslArr = (color: string) => {
   const regex = /^hsl\((\S+),(\S+),(\S+)\)/;
-  const result = removeRgbaBlank(color)?.match(regex);
+  const result = removeColorStrBlank(color)?.match(regex);
 
   if (!Array.isArray(result)) {
     return [];
@@ -25,7 +25,7 @@ export const getHslArr = (color: string) => {
 
 export const getHslaArr = (color: string) => {
   const regex = /^rgba\((\S+),(\S+),(\S+),(\S+)\)/;
-  const result = removeRgbaBlank(color)?.match(regex);
+  const result = removeColorStrBlank(color)?.match(regex);
 
   if (!Array.isArray(result)) {
     return [];
