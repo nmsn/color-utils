@@ -1,5 +1,5 @@
 import * as colorName from "color-name";
-import { removeRgbaBlank } from "./helper";
+import { removeRgbaBlank, getHslArr, getHslaArr } from "./helper";
 
 const isColorName = (name: string) => {
   return Object.keys(colorName).includes(name);
@@ -39,8 +39,36 @@ const isRgba = (color: string) => {
   );
 };
 
-const isColor = (color: string) => {
-  return isColorName(color) || isHex(color) || isRgb(color) || isRgba(color);
+const isHsl = (color: string) => {
+  const [h, s, l] = getHslArr(color);
+
+  return h >= 0 && h <= 360 && s >= 0 && s <= 1 && l >= 0 && l <= 1;
 };
 
-export { isColorName, isHex, isRgb, isRgba, isColor };
+const isHsla = (color: string) => {
+  const [h, s, l, a] = getHslaArr(color);
+
+  return (
+    h >= 0 &&
+    h <= 360 &&
+    s >= 0 &&
+    s <= 1 &&
+    l >= 0 &&
+    l <= 1 &&
+    a >= 0 &&
+    a <= 1
+  );
+};
+
+const isColor = (color: string) => {
+  return (
+    isColorName(color) ||
+    isHex(color) ||
+    isRgb(color) ||
+    isRgba(color) ||
+    isHsl(color) ||
+    isHsla(color)
+  );
+};
+
+export { isColorName, isHex, isRgb, isRgba, isHsl, isHsla, isColor };

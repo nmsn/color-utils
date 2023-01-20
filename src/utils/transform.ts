@@ -1,7 +1,16 @@
 import { default as colorName, RGB } from "color-name";
-import { isColor, isColorName, isHex, isRgb, isRgba } from "./validator";
+import {
+  isColor,
+  isColorName,
+  isHex,
+  isRgb,
+  isRgba,
+  isHsl,
+  isHsla,
+} from "./validator";
 import { ColorModelType, DEFAULT_MODEL, OptionalColorType } from "./constant";
 import { mix2ModelColors, calcComplementaryModal } from "./calc";
+import { getHslArr, getHslaArr } from "./helper";
 
 type ColorNameType = {
   [key: string]: RGB;
@@ -45,6 +54,7 @@ const hex2Model = (color: string): ColorModelType => {
 };
 
 const rgba2Model = (color: string): ColorModelType => {
+  // TODO isRgb
   const result = (isRgba(color) ? color?.substring(5) : color.substring(4))
     .split(")")[0]
     .split(",");
@@ -123,6 +133,7 @@ export const model2Color = (
   return "";
 };
 
+// TODO type conversion
 export const color2Color = (color: string, type?: OptionalColorType) => {
   if (!isColor(color)) {
     return "";
@@ -151,4 +162,54 @@ export const calcComplementaryColor = (
   const model = color2Model(color);
   const complementaryColorModel = calcComplementaryModal(model);
   return model2Color(complementaryColorModel, type);
+};
+
+const hsla2ModalHelper = (h: number, s: number, l: number, a = 1) => {
+  s /= 100;
+  l /= 100;
+  const k = (n: number) => (n + h / 30) % 12;
+  const x = s * Math.min(l, 1 - l);
+  const f = (n: number) =>
+    l - x * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+  return [255 * f(0), 255 * f(8), 255 * f(4), a];
+};
+
+export const hsla2Modal = (color: string) => {
+  if (isHsl(color)) {
+    const [h, s, l] = getHslArr(color);
+    return hsla2ModalHelper(h, s, l);
+  } else if (isHsla(color)) {
+    const [h, s, l, a] = getHslaArr(color);
+    return hsla2ModalHelper(h, s, l, a);
+  } else {
+    throw new Error("Color is not a valid hsl string");
+  }
+};
+
+export const modal2Hsla = (color: ColorModelType) => {
+  let { r, g, b, a } = color;
+
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const l = Math.max(r, g, b);
+  const s = l - Math.min(r, g, b);
+  const h = s
+    ? l === r
+      ? (g - b) / s
+      : l === g
+      ? 2 + (b - r) / s
+      : 4 + (r - g) / s
+    : 0;
+
+  const result = [
+    60 * h < 0 ? 60 * h + 360 : 60 * h,
+    s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0,
+    (2 * l - s) / 2,
+  ];
+
+  return `${a === 1 ? "rgb" : "rgba"}(${result[0]}, ${result[1]}, ${result[2]}${
+    a === 1 ? "" : `, ${a}`
+  })`;
 };
