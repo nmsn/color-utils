@@ -11,25 +11,3 @@ export const getColorType = (color: string) => {
 
   return "";
 };
-
-export const getHslArr = (color: string) => {
-  const regex = /^hsl\((\S+),(\S+),(\S+)\)/;
-  const result = removeColorStrBlank(color)?.match(regex);
-
-  if (!Array.isArray(result)) {
-    return [];
-  }
-
-  return result?.slice(1).map(Number);
-};
-
-export const getHslaArr = (color: string) => {
-  const regex = /^rgba\((\S+),(\S+),(\S+),(\S+)\)/;
-  const result = removeColorStrBlank(color)?.match(regex);
-
-  if (!Array.isArray(result)) {
-    return [];
-  }
-
-  return result?.slice(1).map(Number);
-};

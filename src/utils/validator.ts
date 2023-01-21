@@ -1,5 +1,30 @@
 import * as colorName from "color-name";
-import { removeColorStrBlank, getHslArr, getHslaArr } from "./helper";
+
+export const removeColorStrBlank = (color: string) => {
+  return color?.replace(/\s+/g, "") || "";
+};
+
+export const getHslArr = (color: string) => {
+  const regex = /^hsl\((\S+),(\S+),(\S+)\)/;
+  const result = removeColorStrBlank(color)?.match(regex);
+
+  if (!Array.isArray(result)) {
+    return [];
+  }
+
+  return result?.slice(1).map(Number);
+};
+
+export const getHslaArr = (color: string) => {
+  const regex = /^hsla\((\S+),(\S+),(\S+),(\S+)\)/;
+  const result = removeColorStrBlank(color)?.match(regex);
+
+  if (!Array.isArray(result)) {
+    return [];
+  }
+
+  return result?.slice(1).map(Number);
+};
 
 const isColorName = (name: string) => {
   return Object.keys(colorName).includes(name);

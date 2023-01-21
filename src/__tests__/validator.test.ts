@@ -1,4 +1,4 @@
-import { isColorName, isHex, isRgb, isRgba, isColor } from "../utils/validator";
+import { isColorName, isHex, isRgb, isRgba, isColor, isHsl, isHsla } from "../utils/validator";
 
 describe("test validator functions", () => {
   it("param is valid color name", () => {
@@ -31,5 +31,21 @@ describe("test validator functions", () => {
     expect(isColor("#000000")).toBeTruthy();
     expect(isColor("rgb(255, 255, 255)")).toBeTruthy();
     expect(isColor("rgba(255, 255, 255, 1)")).toBeTruthy();
+  });
+  
+  
+  it("param is valid hsl color", () => {
+    expect(isHsl("hsl(0, 0, 0)")).toBeTruthy();
+    expect(isHsl("hsl(360, 0.5, 0.5)")).toBeTruthy();
+    expect(isHsl("hsl(370, 1, 1)")).toBeFalsy();
+    expect(isHsl("hsla(1, 1, 1, 1)")).toBeFalsy();
+  });
+  
+  
+  it("param is hsla color", () => {
+    expect(isHsla("hsla(0, 0, 0, 0)")).toBeTruthy();
+    expect(isHsla("hsla(360, 0.5, 0.5, 0.5)")).toBeTruthy();
+    expect(isHsla("hsla(370, 1, 1, 1)")).toBeFalsy();
+    expect(isHsla("hsla(1, 1, 1, 1)")).toBeTruthy();
   });
 });

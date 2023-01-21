@@ -10,7 +10,7 @@ import {
 } from "./validator";
 import { ColorModelType, DEFAULT_MODEL, OptionalColorType } from "./constant";
 import { mix2ModelColors, calcComplementaryModal } from "./calc";
-import { getHslArr, getHslaArr } from "./helper";
+import { getHslArr, getHslaArr } from "./validator";
 
 type ColorNameType = {
   [key: string]: RGB;
