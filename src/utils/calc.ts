@@ -34,7 +34,7 @@ export const mix2ModelColors = (
  * 广义上的互补色
  * 黑白/色环
  */
-export const calcComplementaryModal = (
+export const calcComplementaryModel = (
   color: ColorModelType
 ): ColorModelType => {
   const { r, g, b, a } = color;

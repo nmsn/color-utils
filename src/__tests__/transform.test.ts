@@ -2,8 +2,8 @@ import {
   mix2Color,
   color2Color,
   calcComplementaryColor,
-  hsla2Modal,
-  modal2Hsla,
+  hsla2Model,
+  model2Hsla,
 } from "../utils/transform";
 
 describe("test transform functions", () => {
@@ -30,10 +30,10 @@ describe("test transform functions", () => {
   });
 
   it("color2Color", () => {
-    expect(color2Color("rgba(0,0,0,0.5)")).toBe("#00000080");
-    expect(color2Color("rgba(255,255,255,0.5)")).toBe("#ffffff80");
-    expect(color2Color("#fff")).toBe("rgb(255, 255, 255)");
-    expect(() => color2Color("#1")).toThrowError(
+    expect(color2Color("rgba(0,0,0,0.5)", "hex")).toBe("#00000080");
+    expect(color2Color("rgba(255,255,255,0.5)", "hex")).toBe("#ffffff80");
+    expect(color2Color("#fff", "rgb")).toBe("rgb(255, 255, 255)");
+    expect(() => color2Color("#1", "rgb")).toThrowError(
       "Param is not a valid color string."
     );
     expect(color2Color("white", "hex")).toBe("#ffffff");
@@ -53,15 +53,15 @@ describe("test transform functions", () => {
     );
   });
 
-  it("hsla2Modal", () => {
-    expect(hsla2Modal("hsl(0 ,0, 0)")).toEqual({ r: 0, g: 0, b: 0, a: 1 });
-    expect(hsla2Modal("hsl(360, 0, 1)")).toEqual({
+  it("hsla2Model", () => {
+    expect(hsla2Model("hsl(0 ,0, 0)")).toEqual({ r: 0, g: 0, b: 0, a: 1 });
+    expect(hsla2Model("hsl(360, 0, 1)")).toEqual({
       r: 255,
       g: 255,
       b: 255,
       a: 1,
     });
-    expect(hsla2Modal("hsla(180, 0.5, 0.5, 1)")).toEqual({
+    expect(hsla2Model("hsla(180, 0.5, 0.5, 1)")).toEqual({
       r: 63.75,
       g: 191.25,
       b: 191.25,
@@ -69,9 +69,11 @@ describe("test transform functions", () => {
     });
   });
 
-  it("modal2Hsla", () => {
-    expect(modal2Hsla({ r: 0, g: 0, b: 0, a: 1 })).toBe("hsl(0, 0, 0)");
-    expect(modal2Hsla({ r: 255, g: 255, b: 255, a: 1 })).toBe("hsl(0, 0, 1)");
-    expect(modal2Hsla({ r: 252, g: 186, b: 3, a: 1 })).toBe("hsl(44.1, 0.98, 0.5)");
+  it("model2Hsla", () => {
+    expect(model2Hsla({ r: 0, g: 0, b: 0, a: 1 })).toBe("hsl(0, 0, 0)");
+    expect(model2Hsla({ r: 255, g: 255, b: 255, a: 1 })).toBe("hsl(0, 0, 1)");
+    expect(model2Hsla({ r: 252, g: 186, b: 3, a: 1 })).toBe(
+      "hsl(44.1, 0.98, 0.5)"
+    );
   });
 });

@@ -9,7 +9,7 @@ import {
   isHsla,
 } from "./validator";
 import { ColorModelType, DEFAULT_MODEL, OptionalColorType } from "./constant";
-import { mix2ModelColors, calcComplementaryModal } from "./calc";
+import { mix2ModelColors, calcComplementaryModel } from "./calc";
 import { getHslArr, getHslaArr } from "./validator";
 import { toValidNumber } from "./helper";
 
@@ -94,13 +94,6 @@ export const mix2Color = (
   return model2Color(mixResult, type);
 };
 
-const rgba2Hex = (color: string) => {
-  return model2Hex(rgba2Model(color));
-};
-
-const hex2Rgba = (color: string) => {
-  return model2Rgba(hex2Model(color));
-};
 
 export const color2Model = (color: string) => {
   if (isHex(color)) {
@@ -135,25 +128,42 @@ export const model2Color = (
 };
 
 // TODO type conversion
-export const color2Color = (color: string, type?: OptionalColorType) => {
+export const color2Color = (color: string, type: OptionalColorType) => {
   if (!isColor(color)) {
     throw new Error("Param is not a valid color string.");
   }
 
+  let tempModel = {} as ColorModelType;
+
   if (isRgb(color) || isRgba(color)) {
-    return rgba2Hex(color);
+    tempModel = rgba2Model(color);
   }
 
   if (isColorName(color) && type) {
-    const model = rgba2Model(formatColorName2Rgb(color));
-    return model2Color(model, type);
+    tempModel = rgba2Model(formatColorName2Rgb(color));
   }
 
   if (isHex(color)) {
-    return hex2Rgba(color);
+    tempModel = hex2Model(color);
   }
 
-  return hex2Rgba;
+  if (isHsl(color) || isHsla(color)) {
+    tempModel = hsla2Model(color);
+  }
+
+  if (type === "hex") {
+    return model2Hex(tempModel);
+  }
+
+  if (type === "hsl") {
+    return model2Hsla(tempModel);
+  }
+
+  if (type === "rgb") {
+    return model2Rgba(tempModel);
+  }
+
+  return tempModel;
 };
 
 export const calcComplementaryColor = (
@@ -161,11 +171,11 @@ export const calcComplementaryColor = (
   type?: OptionalColorType
 ) => {
   const model = color2Model(color);
-  const complementaryColorModel = calcComplementaryModal(model);
+  const complementaryColorModel = calcComplementaryModel(model);
   return model2Color(complementaryColorModel, type);
 };
 
-const hsla2ModalHelper = (h: number, s: number, l: number, a = 1) => {
+const hsla2ModelHelper = (h: number, s: number, l: number, a = 1) => {
   const k = (n: number) => (n + h / 30) % 12;
   const x = s * Math.min(l, 1 - l);
   const f = (n: number) =>
@@ -180,19 +190,19 @@ const hsla2ModalHelper = (h: number, s: number, l: number, a = 1) => {
   };
 };
 
-export const hsla2Modal = (color: string) => {
+export const hsla2Model = (color: string) => {
   if (isHsl(color)) {
     const [h, s, l] = getHslArr(color);
-    return hsla2ModalHelper(h, s, l);
+    return hsla2ModelHelper(h, s, l);
   } else if (isHsla(color)) {
     const [h, s, l, a] = getHslaArr(color);
-    return hsla2ModalHelper(h, s, l, a);
+    return hsla2ModelHelper(h, s, l, a);
   } else {
     throw new Error("Color is not a valid hsl string");
   }
 };
 
-export const modal2Hsla = (color: ColorModelType) => {
+export const model2Hsla = (color: ColorModelType) => {
   let { r, g, b, a } = color;
 
   r /= 255;
