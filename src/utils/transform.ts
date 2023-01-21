@@ -11,6 +11,7 @@ import {
 import { ColorModelType, DEFAULT_MODEL, OptionalColorType } from "./constant";
 import { mix2ModelColors, calcComplementaryModal } from "./calc";
 import { getHslArr, getHslaArr } from "./validator";
+import { toValidNumber } from "./helper";
 
 type ColorNameType = {
   [key: string]: RGB;
@@ -165,13 +166,18 @@ export const calcComplementaryColor = (
 };
 
 const hsla2ModalHelper = (h: number, s: number, l: number, a = 1) => {
-  s /= 100;
-  l /= 100;
   const k = (n: number) => (n + h / 30) % 12;
   const x = s * Math.min(l, 1 - l);
   const f = (n: number) =>
     l - x * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
-  return [255 * f(0), 255 * f(8), 255 * f(4), a];
+
+  const [r, g, b] = [255 * f(0), 255 * f(8), 255 * f(4), a].map(toValidNumber);
+  return {
+    r,
+    g,
+    b,
+    a,
+  };
 };
 
 export const hsla2Modal = (color: string) => {
@@ -207,9 +213,9 @@ export const modal2Hsla = (color: ColorModelType) => {
     60 * h < 0 ? 60 * h + 360 : 60 * h,
     s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0,
     (2 * l - s) / 2,
-  ];
+  ].map(toValidNumber);
 
-  return `${a === 1 ? "rgb" : "rgba"}(${result[0]}, ${result[1]}, ${result[2]}${
+  return `${a === 1 ? "hsl" : "hsla"}(${result[0]}, ${result[1]}, ${result[2]}${
     a === 1 ? "" : `, ${a}`
   })`;
 };

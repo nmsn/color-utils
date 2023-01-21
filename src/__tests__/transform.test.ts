@@ -2,6 +2,8 @@ import {
   mix2Color,
   color2Color,
   calcComplementaryColor,
+  hsla2Modal,
+  modal2Hsla,
 } from "../utils/transform";
 
 describe("test transform functions", () => {
@@ -49,5 +51,27 @@ describe("test transform functions", () => {
     expect(calcComplementaryColor("rgba(67, 12.5, 12.5, 0.5)", "rgb")).toBe(
       "rgba(188, 242.5, 242.5, 0.5)"
     );
+  });
+
+  it("hsla2Modal", () => {
+    expect(hsla2Modal("hsl(0 ,0, 0)")).toEqual({ r: 0, g: 0, b: 0, a: 1 });
+    expect(hsla2Modal("hsl(360, 0, 1)")).toEqual({
+      r: 255,
+      g: 255,
+      b: 255,
+      a: 1,
+    });
+    expect(hsla2Modal("hsla(180, 0.5, 0.5, 1)")).toEqual({
+      r: 63.75,
+      g: 191.25,
+      b: 191.25,
+      a: 1,
+    });
+  });
+
+  it("modal2Hsla", () => {
+    expect(modal2Hsla({ r: 0, g: 0, b: 0, a: 1 })).toBe("hsl(0, 0, 0)");
+    expect(modal2Hsla({ r: 255, g: 255, b: 255, a: 1 })).toBe("hsl(0, 0, 1)");
+    expect(modal2Hsla({ r: 252, g: 186, b: 3, a: 1 })).toBe("hsl(44.1, 0.98, 0.5)");
   });
 });
