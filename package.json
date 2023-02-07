@@ -23,7 +23,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "prepare": "husky install",
-    "publish": "npm run build && npm publish"
+    "release": "npm run build && rltb"
   },
   "repository": {
     "type": "git",
