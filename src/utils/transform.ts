@@ -193,7 +193,6 @@ const hsla2ModelHelper = (h: number, s: number, l: number, a = 1) => {
   };
 };
 
-// TODO
 export const hsla2Model = (color: string) => {
   if (isHsl(color)) {
     const [h, s, l] = getHslArr(color);

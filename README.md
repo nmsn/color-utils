@@ -22,32 +22,8 @@ npm install @nmsn/color-utils
 - [x] 单元测试覆盖
   - [ ] 生成 tag
 - [x] rollup 打包
-- [ ] 持续发布 npm
+- [x] 持续发布 npm
+- [ ] 合并 rgba hsla model
   
 - [x] 重写 color-composite 函数/本地 mix 函数替换
 - [ ] 在线 color-picker 使用工具
-
-## Changelog
-
-- v0.0.1
-
-  - 项目搭建
-  - 功能
-    - 颜色类型转换
-    - 颜色类型校验
-    - 颜色融合
-  - 增加单元测试
-
-- v0.0.2
-  - 新增 getColorType 获取颜色类型方法
-  - 新增计算互补色的方法
-
-- v0.0.3
-  - 修复 hex 转化错误问题
-
-- v0.0.4
-  - 修复 isRgb isRgba 颜色判断
-
-- v0.0.5v
-  - 修复 isRgb isRgba 颜色判断
-  - 增加测试用例
