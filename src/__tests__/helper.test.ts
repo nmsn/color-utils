@@ -1,7 +1,7 @@
-import { removeColorStrBlank, getColorType } from "../utils/helper";
+import { removeColorStrBlank, getColorType, isLight } from "../utils/helper";
 
 describe("helper", () => {
-  it("helper", () => {
+  it("removeColorStrBlank", () => {
     expect(removeColorStrBlank("rgba(0, 0, 0, 1)")).toBe("rgba(0,0,0,1)");
   });
 
@@ -13,5 +13,10 @@ describe("helper", () => {
     expect(getColorType("#ffffffff")).toBe("hex");
     expect(getColorType("#ffffff")).toBe("hex");
     expect(getColorType("#fff")).toBe("hex");
+  });
+
+  it("isLight", () => {
+    expect(isLight("rgba(255,255,255,1)")).toBe(true);
+    expect(isLight("rgba(0,0,0,0)")).toBe(false);
   });
 });

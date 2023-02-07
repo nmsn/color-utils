@@ -1,3 +1,4 @@
+import { isLight } from "./utils/helper";
 import {
   mix2Color,
   color2Color,
@@ -13,3 +14,5 @@ export {
   calcComplementaryColor,
   validator,
 };
+
+export { isLight } from "./utils/helper";
