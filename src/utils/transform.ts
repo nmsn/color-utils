@@ -94,7 +94,6 @@ export const mix2Color = (
   return model2Color(mixResult, type);
 };
 
-
 export const color2Model = (color: string) => {
   if (isHex(color)) {
     return hex2Model(color);
@@ -102,6 +101,10 @@ export const color2Model = (color: string) => {
 
   if (isRgba(color) || isRgb(color)) {
     return rgba2Model(color);
+  }
+
+  if (isHsla(color) || isHsl(color)) {
+    return hsla2Model(color);
   }
 
   if (isColorName(color)) {
@@ -190,6 +193,7 @@ const hsla2ModelHelper = (h: number, s: number, l: number, a = 1) => {
   };
 };
 
+// TODO
 export const hsla2Model = (color: string) => {
   if (isHsl(color)) {
     const [h, s, l] = getHslArr(color);
@@ -203,6 +207,14 @@ export const hsla2Model = (color: string) => {
 };
 
 export const model2Hsla = (color: ColorModelType) => {
+  const { h, s, l, a } = model2HslaModel(color);
+
+  return `${a === 1 ? "hsl" : "hsla"}(${h}, ${s}, ${l}${
+    a === 1 ? "" : `, ${a}`
+  })`;
+};
+
+export const model2HslaModel = (color: ColorModelType) => {
   let { r, g, b, a } = color;
 
   r /= 255;
@@ -224,8 +236,5 @@ export const model2Hsla = (color: ColorModelType) => {
     s ? (l <= 0.5 ? s / (2 * l - s) : s / (2 - (2 * l - s))) : 0,
     (2 * l - s) / 2,
   ].map(toValidNumber);
-
-  return `${a === 1 ? "hsl" : "hsla"}(${result[0]}, ${result[1]}, ${result[2]}${
-    a === 1 ? "" : `, ${a}`
-  })`;
+  return { h: result[0], s: result[1], l: result[2], a };
 };
