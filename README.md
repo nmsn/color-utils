@@ -1,6 +1,22 @@
 # color-utils
 
-一个前端转换颜色的工具
+![npm](https://img.shields.io/npm/v/@nmsn/color-utils)
+![size](https://img.shields.io/bundlephobia/min/@nmsn/color-utils)
+![npm license](https://img.shields.io/npm/l/@nmsn/utils)
+![last commit](https://img.shields.io/github/last-commit/nmsn/color-utils)
+![commit activity](https://img.shields.io/github/commit-activity/y/nmsn/color-utils)
+
+English | [简体中文](./README.zh-CN.md)
+
+Color conversion tool library.
+
+## Features
+
+- `RGB`/`RGBA`/`HEX`/`HSL`/`HSLA`/`color-name` color interconversion. ([color-name]
+- Validators for the above types of colors.
+- Provide computational multi-color fusion function.
+- Provides the function of calculating the complementary color.
+- Provide the function of judging the color light and dark (mostly used to deal with the relationship between the background color and the displayed text).
 
 ## Install
 
@@ -8,22 +24,38 @@
 npm install @nmsn/color-utils
 ```
 
-## Feature
+## Usage
 
-- RGB/RGBA 和 HEX 形式的颜色相互转化
-- 各种颜色类型的校验
-- 融合多种颜色生成对应类型的格式
+```js
+import { isLight } from '@nmsn/color-utils';
 
-## TODO
+const isLightColor = isLight('#999'); // true
+```
 
-- [ ] 基础功能
-  - [ ] 互补色（白色和黑色如何处理）
-  - [ ] 弱化 rgb/rgba 两个概念，根据透明度自动判断
-- [x] 单元测试覆盖
-  - [ ] 生成 tag
-- [x] rollup 打包
-- [x] 持续发布 npm
-- [ ] 合并 rgba hsla model
-  
-- [x] 重写 color-composite 函数/本地 mix 函数替换
-- [ ] 在线 color-picker 使用工具
+Online Address: [https://color-utils-site.vercel.app/](https://color-utils-site.vercel.app/)
+
+Project Address: [https://github.com/nmsn/color-utils-site](https://github.com/nmsn/color-utils-site)
+
+
+## Finished
+
+- [x] `RGB`/`RGBA`/`HEX`/`HSL`/`HSLA`/`color-name` interconversion.
+- [x] Checksum functions for each color format.
+- [x] Unit testing of existing features.
+- [x] Color fusion calculations.
+- [x] Complementary color calculation.
+- [x] Color brightness judgment.
+- [x] `Rollup` Basic Function Package.
+
+## Todo
+
+- [ ] `Rollup` packed volume optimization.
+- [ ] Code optimization.
+
+## Contributing
+
+- [nmsn](https://github.com/nmsn)
+
+## License
+
+[MIT License](https://github.com/nmsn/color-utils/blob/main/LICENSE)
