@@ -38,7 +38,7 @@ const isLightColor = isLight('#999'); // true
 
 ## 已完成功能
 
-- [x] `RGB/RGBA/HEX/HSL/HSLA/ColorName` 互相转化
+- [x] `RGB`/`RGBA`/`HEX`/`HSL`/`HSLA`/`color-name` 互相转化
 - [x] 各颜色格式的校验函数
 - [x] 现有功能的单元测试
 - [x] 颜色融合计算
@@ -48,8 +48,8 @@ const isLightColor = isLight('#999'); // true
 
 ## 待完成功能
 
-- [x] rollup 打包体积优化
-- [x] 代码优化
+- [ ] rollup 打包体积优化
+- [ ] 代码优化
 
 ## 贡献者
 
