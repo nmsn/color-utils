@@ -1,10 +1,11 @@
 # color-utils
 
 ![npm](https://img.shields.io/npm/v/@nmsn/color-utils)
-![size](https://img.shields.io/bundlephobia/min/@nmsn/color-utils)
-![npm license](https://img.shields.io/npm/l/@nmsn/utils)
+![size](https://img.shields.io/bundlephobia/minzip/@nmsn/color-utils)
 ![last commit](https://img.shields.io/github/last-commit/nmsn/color-utils)
 ![commit activity](https://img.shields.io/github/commit-activity/y/nmsn/color-utils)
+[![codecov](https://codecov.io/gh/nmsn/color-utils/branch/main/graph/badge.svg?token=QOWP4QHA52)](https://codecov.io/gh/nmsn/color-utils)
+![license](https://img.shields.io/npm/l/@nmsn/utils)
 
 [English](./README.md) | 简体中文
 
