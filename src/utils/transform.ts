@@ -170,6 +170,10 @@ export const color2Color = (color: string, type: OptionalColorType) => {
     return model2Rgba(tempModel);
   }
 
+  if (type === "name") {
+    return modal2ColorName(tempModel);
+  }
+
   throw new Error("No valid transform result");
 };
 
@@ -240,4 +244,22 @@ export const model2HslaModel = (color: ColorModelType) => {
     (2 * l - s) / 2,
   ].map(toValidNumber);
   return { h: result[0], s: result[1], l: result[2], a };
+};
+
+// TODO 增加误差范围的计算
+export const modal2ColorName = (color: ColorModelType) => {
+  const { r, g, b, a } = color;
+  const map = Object.entries(colorName);
+
+  const colorNameItem = map.find(([name, value]) => {
+    const [cr, cg, cb] = value;
+
+    return a === 1 && r === cr && g === cg && b === cb;
+  });
+
+  if (colorNameItem) {
+    return colorNameItem[0];
+  }
+
+  return "";
 };

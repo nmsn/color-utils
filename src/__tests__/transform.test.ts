@@ -4,6 +4,7 @@ import {
   calcComplementaryColor,
   hsla2Model,
   model2Hsla,
+  modal2ColorName,
 } from "../utils/transform";
 
 describe("test transform functions", () => {
@@ -38,6 +39,11 @@ describe("test transform functions", () => {
     );
     expect(color2Color("white", "hex")).toBe("#ffffff");
     expect(color2Color("white", "rgb")).toBe("rgb(255, 255, 255)");
+
+    expect(color2Color("#ffffff", "name")).toBe("white");
+    expect(color2Color("rgb(128, 0, 128)", "name")).toBe("purple");
+    expect(color2Color("rgba(0, 128, 128, 1)", "name")).toBe("teal");
+    expect(color2Color("rgb(1, 1, 1)", "name")).toBe("");
   });
 
   it("calcComplementaryColor", () => {
