@@ -154,6 +154,10 @@ export const color2Color = (color: string, type: OptionalColorType) => {
     tempModel = hsla2Model(color);
   }
 
+  if (Object.keys(tempModel).length === 0) {
+    throw new Error("Color is not a valid param.");
+  }
+
   if (type === "hex") {
     return model2Hex(tempModel);
   }
@@ -166,7 +170,7 @@ export const color2Color = (color: string, type: OptionalColorType) => {
     return model2Rgba(tempModel);
   }
 
-  return tempModel;
+  throw new Error("No valid transform result");
 };
 
 export const calcComplementaryColor = (
