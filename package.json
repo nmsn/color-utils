@@ -41,7 +41,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-typescript": "^8.5.0",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@types/color-name": "^1.1.1",
     "@types/jest": "^28.1.8",
     "husky": "^8.0.3",
