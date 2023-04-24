@@ -79,8 +79,8 @@ const model2Hex = (color: ColorModelType): string => {
 
 const model2Rgba = (color: ColorModelType): string => {
   const { r, g, b, a } = color;
-  return `${a === 1 ? "rgb" : "rgba"}(${r}, ${g}, ${b}${
-    a === 1 ? "" : `, ${a}`
+  return `${a === 1 ? "rgb" : "rgba"}(${r},${g},${b}${
+    a === 1 ? "" : `,${a}`
   })`;
 };
 
@@ -216,8 +216,8 @@ export const hsla2Model = (color: string) => {
 export const model2Hsla = (color: ColorModelType) => {
   const { h, s, l, a } = model2HslaModel(color);
 
-  return `${a === 1 ? "hsl" : "hsla"}(${h}, ${s}, ${l}${
-    a === 1 ? "" : `, ${a}`
+  return `${a === 1 ? "hsl" : "hsla"}(${h},${s},${l}${
+    a === 1 ? "" : `,${a}`
   })`;
 };
 
